@@ -1,7 +1,7 @@
 {
-  "name": "electron-quick-start",
+  "name": "character-sheet",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "Manage your dnd characters",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
@@ -18,5 +18,6 @@
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^7.1.3"
-  }
+  },
+  "dependencies": {}
 }

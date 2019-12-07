@@ -1,0 +1,266 @@
+/* Theme Variables */
+:root {
+    --background-color-dark: #202020;
+    --background-color-medium: #303030;
+    --background-color-light: #404040;
+    --background-color-dark-selected: #303030;
+    --background-color-medium-selected: #404040;
+    --background-color-light-selected: #505050;
+    --background-color-dark-hover: #404040;
+    --background-color-medium-hover: #505050;
+    --background-color-light-hover: #606060;
+    --border-color-dark: #252525;
+    --border-color-medium: #353535;
+    --border-color-light: #454545;
+    --title-color: #dddddd;
+    --text-color: #bbbbbb;
+}
+
+/* Basic HTML */
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+}
+html {
+    display: grid;
+    height: 100%;
+    overflow:hidden;
+}
+body {
+    background: var(--background-color-dark);
+    margin: 0px;
+    display: flex;
+    flex-flow: row;
+    justify-content: stretch;
+}
+textarea, input {
+    background-color: var(--background-color-dark);
+    color: var(--text-color);
+    border: none
+}
+i {
+    color: var(--title-color);
+    font-size: 25px;
+}
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background-color: var(--background-color-medium);
+}
+::-webkit-scrollbar-thumb {
+    background-color: var(--background-color-light-selected);
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    cursor: pointer;
+}
+::-webkit-scrollbar-button, ::-webkit-scrollbar-corner, ::-webkit-resizer {
+    display: none;
+}
+#templates {
+    display: none;
+}
+
+/* Character Sheet */
+.main {
+    width: 100%;
+}
+
+/* Sidebar */
+.sidebar {
+    background: var(--background-color-medium);
+    min-width: 300px;
+    max-width: 400px;
+    transition: .1s;
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    padding-top: 7px;
+    color: var(--text-color);
+}
+.sidebar > i {
+    padding: 5px;
+    position: absolute;
+    top: 0;
+    background: var(--background-color-medium);
+    line-height: 20px;
+}
+.sidebar-left > i {
+    right: -31px;
+}
+.sidebar-right > i {
+    left: -31px;
+}
+.sidebar i:hover {
+    background-color: var(--background-color-light-hover);
+    cursor: pointer;
+}
+.sidebar .item {
+    background-color: var(--background-color-light);
+    border: 2px solid var(--border-color-light);
+    border-radius: 3px;
+    margin: 2px;
+    position: relative;
+}
+.sidebar .title {    
+    color: var(--title-color);
+    text-align: center;
+    font-size: 16px;
+    width: 100%;
+}
+.sidebar .content {
+    flex-grow: 1;
+}
+.sidebar.collapsed {
+    width: 2px;
+    min-width: 2px;
+}
+.sidebar.collapsed .title {
+    display:none;
+}
+.sidebar.collapsed .content {
+    display: none;
+}
+
+/* Sidebar Section */
+.sidebar .section {
+    display:flex;
+    flex-flow: column;
+}
+.sidebar .section.selected {
+    height: calc(100% - 50px);
+}
+.sidebar .section > .content {
+    display: flex;
+    flex-flow: column;
+    justify-content: stretch;
+    background-color: var(--background-color-dark);
+    flex-grow: 1;
+    margin: 2px;
+}
+.sidebar .section.selected > .title {
+    background-color: var(--background-color-medium-selected);
+}
+.sidebar .section  > .title:hover {
+    background-color: var(--background-color-light-hover);
+    cursor: pointer;
+}
+.sidebar .section.selected > .content {
+    border: 1px solid var(--border-color-medium);
+}
+.sidebar .section:not(.selected) > .content {
+    display: none;
+}
+#notes {
+    height: 100%;
+    resize: none;
+}
+.sidebar .file-panel {
+    display:flex;
+    flex-flow: row;
+    justify-items: left;
+}
+.sidebar .file-panel > i {
+    padding: 3px 5px 3px 5px;
+}
+
+/* Characters */
+.sidebar .character {
+    position: relative;
+}
+.sidebar .character > i {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 14px;
+    display: none;
+}
+.sidebar .character:hover > i {
+    display: inline-block;
+    padding: 4px;
+}
+.sidebar .character > i:hover {
+    background-color: var(--background-color-medium-hover);
+}
+.sidebar .character:hover {
+    background-color: var(--background-color-light-hover);
+    border: 2px solid var(--background-color-light-hover);
+    cursor: pointer;
+}
+.sidebar .character .info {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: stretch;
+    color: var(--text-color);
+}
+.sidebar .character .info > * {
+    padding: 1px;
+}
+.sidebar .character .info .race {
+    flex-grow: 1;
+}
+
+/* Spells */
+.sidebar .section .spell {
+}
+.sidebar .section .spell .title {
+}
+.sidebar .section .spell > i {
+    position: absolute;
+    right: 2px;
+    top: 2px;
+    font-size: 18px;
+    width: 20px;
+    text-align: center;
+}
+.sidebar .section .spell .school {
+    text-align: center;
+    font-style: italic;
+}
+.sidebar .section .spell .info {    
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto auto auto;
+}
+.sidebar .section .spell .info *:nth-child(2n) {    
+    text-align: right;
+}
+.sidebar .section .spell .info .time {
+    grid-column: 2;
+}
+.sidebar .section .spell .info .description {
+    grid-column: 1 / 3;
+}
+.sidebar .section .spell .edit-panel {
+    text-align: right;
+}
+.sidebar .section .spell .edit-panel > i {
+    font-size: 16px;
+    padding: 3px;
+}
+.sidebar .section .spell.collapsed .description,
+.sidebar .section .spell.collapsed .school,
+.sidebar .section .spell.collapsed .edit-panel
+ {
+    display: none;
+}
+.edit-property {
+    width: calc(100% - 1px);
+    font-size: 16px;
+    margin: 1px;
+    padding: 3px;
+}
+textarea.edit-property {
+    min-height: 180px;
+    resize: none;
+}
+.sidebar .section .spell.editing > .fa-angle-up,
+.sidebar .section .spell.editing .edit-panel .fa-edit {
+    display: none;
+}
+.sidebar-right .section .item.add {
+    width:100%;
+    text-align: center;
+    padding: 3px;
+}

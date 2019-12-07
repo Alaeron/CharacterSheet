@@ -5,13 +5,95 @@
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
     <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <title>Hello World!</title>
+    <title>Character Sheet</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="fa/css/all.css">
   </head>
   <body>
-    <h1>Hello World!</h1>
-    We are using Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    and Electron <span id="electron-version"></span>.
+    <div class="sidebar sidebar-left">
+      <i class="fas fa-angle-double-left"></i>
+      <div class="title">Characters</div>
+      <div class="content">
+        <div class="file-panel">
+          <i class="fas fa-folder-open"></i>
+          <i class="fas fa-save"></i>
+          <i class="fas fa-plus"></i>
+        </div>
+        <div class="item character">
+          <div class="title">Blood</div>
+          <i class="fas fa-minus-circle"></i>
+          <div class="info">
+            <div class="race">Warforged</div>
+            <div class="class">Cleric</div>
+            <div class="level">1</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="main">
+
+    </div>
+    <div class="sidebar sidebar-right">
+        <i class="fas fa-angle-double-right"></i>
+        <div class="content">
+          <div class="section spells selected">
+            <div class="title">Spells</div>
+            <div class="content">
+              <div class="level">
+                <div class="title">Level 1</div>
+                <div class="item spell">
+                    <div class="title">Inflict Wounds</div>
+                    <div class="school">Necromancy</div>
+                    <i class="fas fa-angle-up"></i>
+                    <div class="info">
+                      <div class="range">Touch</div>
+                      <div class="time">1 action</div>
+                      <div class="components">V,S</div>
+                      <div class="duration">Instantaneous</div>
+                      <div class="description">Make a melee spell attack against a creature you can reach. On a hit, the target takes 3d10 necrotic damage. At Higher Levels. When you cast this spell using a spell slot of 2nd level or higher, the damage increases by 1d10 for each slot level above 1st.</div>
+                    </div>
+                    <div class="edit-panel">                      
+                      <i class="fas fa-edit"></i>
+                      <i class="fas fa-minus-circle"></i>
+                    </div>
+                </div>
+                <div class="item spell collapsed">
+                    <div class="title">Protection from Evil and Good</div>
+                    <div class="school">Abjuration</div>
+                    <i class="fas fa-angle-down"></i>
+                    <div class="info">
+                      <div class="range">Touch</div>
+                      <div class="time">1 action</div>
+                      <div class="components">V,S,M</div>
+                      <div class="duration">Concentration &#x3C;10min </div>
+                      <div class="description">Until the spell ends, one willing creature you touch is protected against certain types of creatures: aberrations, celestials, elementals, fey, fiends, and undead. The protection grants several benefits. Creatures of those types have disadvantage on attack rolls against the target. The target also can't be charmed, frightened, or possessed by them. If the target is already charmed, frightened, or possessed by such a creature, the target has advantage on any new saving throw against the relevant effect.</div>
+                    </div>
+                    <div class="edit-panel">                      
+                      <i class="fas fa-edit"></i>
+                      <i class="fas fa-minus-circle"></i>
+                    </div>
+                </div>
+                <i class="fas fa-plus item add"></i>
+              </div>
+              
+            </div>
+          </div>
+          <div class="section">
+            <div class="title">Feats</div>
+            <div class="content">
+              
+            </div>
+          </div>
+          <div class="section">
+            <div class="title">Notes</div>
+            <div class="content">
+              <textarea id="notes"></textarea>
+            </div>
+          </div>
+        </div>
+
+    </div>
 
     <!-- You can also require other files to run in this process -->
     <script src="./renderer.js"></script>
