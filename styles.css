@@ -31,7 +31,7 @@ body {
     margin: 0px;
     display: flex;
     flex-flow: row;
-    justify-content: stretch;
+    justify-content: space-between;
 }
 textarea, input {
     background-color: var(--background-color-dark);
@@ -61,6 +61,12 @@ i {
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
+}
+.flex-wrap-row {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    width: 100%;
 }
 
 /* Box Shapes */
@@ -123,7 +129,7 @@ input[type=number]::-webkit-outer-spin-button {
     width: calc(100% - 20px);
     height: 0;
     position: absolute;
-    top: 0;
+    top: calc(44px - 100%);
     left: 0;
     border-bottom: 10px solid var(--background-color-medium);
     border-left: 10px solid var(--background-color-dark);
@@ -134,7 +140,7 @@ input[type=number]::-webkit-outer-spin-button {
     width: calc(100% - 20px);
     height: 0;
     position: absolute;
-    bottom: 0;
+    bottom: calc(44px - 100%);
     left: 0;
     border-top: 10px solid var(--background-color-medium);
     border-left: 10px solid var(--background-color-dark);
@@ -153,6 +159,9 @@ input[type=number]::-webkit-outer-spin-button {
     text-align: center;
     flex-grow: 1;
     height: auto;
+    z-index: 10;
+    margin-top: -4px;
+    padding: 2px;
 }
 
 /* Character Sheet */
@@ -163,6 +172,7 @@ input[type=number]::-webkit-outer-spin-button {
     grid-template-rows: 1fr 6fr;
     padding-left: 30px;
     padding-right: 30px;
+    max-width: 1800px;
 }
 .sheet .section {
     /* border: 1px solid var(--border-color-medium); */
@@ -176,14 +186,18 @@ input[type=number]::-webkit-outer-spin-button {
     grid-column: 1 / 5;
     display: grid;
     grid-template-columns: 1.3fr 1fr 1fr 1fr;
-    grid-template-rows: 2fr 1fr 2fr 1fr;
 }
 .sheet .section.header input  {
     background-color: var(--background-color-medium);
     margin: 2px;
-    font-size: 26px;
+    font-size: calc(100vw / 70);
     width: calc(100% - 4px);
     padding: 0px 10px 2px 10px;
+}
+@media (min-width: 2000px) {    
+    .sheet .section.header input  {
+        font-size: 30px;
+    }
 }
 .sheet .section.header label {
     margin: 2px;
@@ -214,9 +228,62 @@ input[type=number]::-webkit-outer-spin-button {
     grid-column: 2;    
     display: flex;
     flex-flow: column;
+    text-align: center;
+}
+.sheet .section.skills .skill-group .title {
+    color: var(--title-color);
+    grid-column: 1 / 4;
+}
+.sheet .section.skills .skill-group {
+    background-color: var(--background-color-medium);
+    padding: 2px;
+    margin-bottom: 10px;
+}
+.sheet .section.skills .skill-group .skill {
+    display: flex;
+    width: 100%;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    align-items: center;
+}
+.sheet .section.skills .skill-group .skill:first-of-type {
+    padding-top: 8px;
+}
+.sheet .section.skills .skill-group .skill:last-of-type {
+    padding-bottom: 8px;
+}
+.sheet .section.skills .skill-group .skill label {
+    text-align: left;
+    padding-left: 10px;
+}
+.sheet .section.skills .skill-group input {
+    min-width: 35px;
+    width: 35px;
+    max-height: 30px;
+    text-align: center;
+    font-size: 14px;
+    background: var(--background-color-medium-selected);
 }
 .sheet .section.combat {
-    grid-column: 3;        
+    grid-column: 3;   
+}
+.sheet .section.combat .stats {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+.sheet .section.combat .combat-stat {
+    display: flex;
+    flex-flow: column-reverse;
+    align-items: center;
+    text-align: center;
+}
+.sheet .section.combat .combat-stat input {
+    font-size: 22px;
+}
+.sheet .section.combat .combat-stat label {
+    padding-bottom: 26px;
+    padding-top: 2px;
 }
 .sheet .section.personality {
     grid-column: 4;        
