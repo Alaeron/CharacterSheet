@@ -58,13 +58,109 @@ i {
 ::-webkit-scrollbar-button, ::-webkit-scrollbar-corner, ::-webkit-resizer {
     display: none;
 }
-#templates {
-    display: none;
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
 }
 
 /* Character Sheet */
-.main {
+.sheet {
     width: 100%;
+    display: grid;
+    grid-template-columns: .5fr 1fr 2fr 2fr;
+    grid-template-rows: 1fr 6fr;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+.sheet .section {
+    /* border: 1px solid var(--border-color-medium); */
+    padding: 5px;
+    color: var(--text-color);
+}
+/* Section Header */
+.sheet .section.header {
+    grid-column: 1 / 5;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1fr 1fr;
+    grid-template-rows: 2fr 1fr 2fr 1fr;
+}
+.sheet .section.header input  {
+    background-color: var(--background-color-medium);
+    margin: 2px;
+    font-size: 26px;
+    width: calc(100% - 4px);
+    padding: 0px 10px 2px 10px;
+}
+.sheet .section.header label {
+    margin: 2px;
+    margin-top: -3px;
+}
+.sheet .section.attributes {
+    grid-column: 1;    
+    display: flex;
+    flex-flow: column;
+}
+.sheet .section.attributes .attribute {
+    display: flex;
+    flex-flow: column;
+    text-align: center;
+    align-items: center;
+}
+.attribute {
+    width: 94px;
+    height: 100px;
+    background: var(--background-color-medium);
+    position: relative;
+    margin-bottom: 10px;
+}
+.attribute:before {
+    content: "";
+    width: 36px;
+    height: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-bottom: 15px solid var(--background-color-medium);
+    border-left: 29px solid var(--background-color-dark);
+    border-right: 29px solid var(--background-color-dark);
+}
+.attribute:after {
+    content: "";
+    width: 36px;
+    height: 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-top: 29px solid var(--background-color-medium);
+    border-left: 29px solid var(--background-color-dark);
+    border-right: 29px solid var(--background-color-dark);
+}  
+.sheet .section.attributes .attribute > * {
+    width: 90px;
+    z-index: 10;
+}
+.sheet .section.attributes .attribute label {
+    padding: 10px 0px 5px 0px;
+}
+.sheet .section.attributes .attribute input {
+    text-align: center;
+    width: 30px;
+    padding: 2px 2px 2px 0px;
+    margin: 2px;
+}
+.sheet .section.attributes .attribute .attribute-value {
+    font-size: 20px;
+}
+.sheet .section.attributes .attribute .attribute-mod {
+}
+.sheet .section.skills {
+    grid-column: 2;    
+}
+.sheet .section.combat {
+    grid-column: 3;        
+}
+.sheet .section.personality {
+    grid-column: 4;        
 }
 
 /* Sidebar */
@@ -88,10 +184,10 @@ i {
     line-height: 20px;
 }
 .sidebar-left > i {
-    right: -31px;
+    right: -32px;
 }
 .sidebar-right > i {
-    left: -31px;
+    left: -32px;
 }
 .sidebar i:hover {
     background-color: var(--background-color-light-hover);

@@ -123,11 +123,53 @@ function spell_save(event) {
     unwrap_edit_property(rangeElement)
     unwrap_edit_property(timeElement)
     unwrap_edit_property(componentsElement)
+
     unwrap_edit_property(durationElement)
     unwrap_edit_property(descriptionElement)
     
     event.target.remove()
     itemElement.classList.remove('editing')
+    categorize_spells()
+}
+/* Add Spell */
+document.querySelector(".sidebar .section.spells .item.add").addEventListener("click", add_spell)
+function add_spell(event) {
+    var spellElement = createElementFromHTML(Templates.Spell)
+    var spellContainer = document.querySelector(".sidebar-right .section.spells .content")
+
+    spellElement.querySelector(".edit-panel .fa-edit").addEventListener("click", spell_edit)
+    spellElement.querySelector(".edit-panel .fa-minus-circle").addEventListener("click", item_delete)
+    spellElement.querySelector(".fa-angle-up").addEventListener("click", spell_toggle)
+
+    begin_edit_spell(spellElement)
+
+    spellContainer.insertBefore(spellElement, event.target)
+
+}
+
+/* Categorize Spells */
+function categorize_spells() {
+    var spellContainer = document.querySelector(".sidebar-right .section.spells > .content")
+
+    spellContainer.querySelectorAll(":scope > .title").forEach(function (element, index) {
+        element.remove()
+    })
+
+    var spells = spellContainer.querySelectorAll(".spell")
+    spells = Array.from(spells).sort(function(a, b) {
+        return(a.querySelector(".level").textContent.localeCompare(b.querySelector(".level").textContent))
+    })
+    var lastLevel = "-1";
+    spells.forEach(function(element, index) {
+        var level = element.querySelector(".level").textContent
+        if (level !== lastLevel) {
+            spellContainer.appendChild(createElementFromHTML('<div class="title">Level ' + (level != "" ? level : '-') + '</div>'))
+            lastLevel = level
+        }
+        spellContainer.appendChild(element)
+    })
+    spellContainer.appendChild(document.querySelector(".sidebar-right .section.spells .content i.add"))
+
 }
 
 /* Item Delete */
@@ -136,12 +178,17 @@ document.querySelectorAll(".sidebar .item i.fa-minus-circle").forEach(function(e
 })
 function item_delete(event) {
     var itemElement = event.target.closest('.item')
-    itemElement.remove()
+    if (itemElement.classList.contains("spell")){
+        itemElement.remove()
+        categorize_spells()
+    } else {
+        itemElement.remove()
+    }
 }
 
 /* Add Feat */
-document.querySelector(".sidebar .section.feats .item.add").addEventListener("click", add_spell)
-function add_spell(event) {
+document.querySelector(".sidebar .section.feats .item.add").addEventListener("click", add_feat)
+function add_feat(event) {
     var featElement = createElementFromHTML(Templates.Feat)
     var featContainer = document.querySelector(".sidebar-right .section.feats .content")
 
@@ -152,10 +199,6 @@ function add_spell(event) {
     begin_edit_feat(featElement)
 
     featContainer.insertBefore(featElement, event.target)
-
-}
-function sortSpells() {
-    var spellContainer = document.querySelector(".sidebar-right .section.spells .content")
 
 }
 

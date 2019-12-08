@@ -10,6 +10,8 @@
     <link rel="stylesheet" type="text/css" href="fa/css/all.css">
   </head>
   <body>
+
+    <!-- Roster Sidebar -->
     <div class="sidebar sidebar-left">
       <i class="fas fa-angle-double-left"></i>
       <div class="title">Characters</div>
@@ -32,20 +34,85 @@
         </div>
       </div>
 
+    <!-- Character Sheet -->
     </div>
-    <div class="main">
+    <div class="sheet">
+      <div class="section header">
+        <input id="name" value="Blood">     
+        <input id="class" value="Cleric">
+        <input id="level" value="1" type="number">        
+        <input id="background" value="Soldier">
+        
+        <label for="name">Character Name</label>
+        <label for="class">Class</label>
+        <label for="level">Level</label>
+        <label for="background">Background</label>
+
+        <div class="spacer"></div>
+        <input id="race" value="Warforged">
+        <input id="alignment" value="Lawful Neutral">
+        <input id="experience" type="number" value="100">
+
+        <div class="spacer"></div>
+        <label for="race">Race</label>
+        <label for="alignment">Alignment</label>
+        <label for="experience">Experience</label>
+      </div>
+      <div class="section attributes">
+        <div class="attribute">
+          <label>Strength</label>
+          <input class="attribute-value" id="strength" value="15">
+          <input class="attribute-mod" id="strength-mod" value="+2">
+        </div>
+        <div class="attribute">
+          <label>Dexterity</label>
+          <input class="attribute-value" id="dexterity" value="15">
+          <input class="attribute-mod" id="dexterity-mod" value="+2">
+        </div>
+        <div class="attribute">
+          <label>Constitution</label>
+          <input class="attribute-value" id="constitution" value="15">
+          <input class="attribute-mod" id="constitution-mod" value="+2">
+        </div>
+        <div class="attribute">
+          <label>Intelligence</label>
+          <input class="attribute-value" id="intelligence" value="15">
+          <input class="attribute-mod" id="intelligence-mod" value="+2">
+        </div>
+        <div class="attribute">
+          <label>Wisdom</label>
+          <input class="attribute-value" id="wisdom" value="15">
+          <input class="attribute-mod" id="wisdom-mod" value="+2">
+        </div>
+        <div class="attribute">
+          <label>Charisma</label>
+          <input class="attribute-value" id="charisma" value="15">
+          <input class="attribute-mod" id="charisma-mod" value="+2">
+        </div>
+      </div>
+
+      <div class="section skills">      
+      </div>
+
+      <div class="section combat">
+      </div>
+
+      <div class="section personality">
+      </div>
 
     </div>
+
+    <!-- Right Sidebar -->
     <div class="sidebar sidebar-right">
         <i class="fas fa-angle-double-right"></i>
         <div class="content">
-          <div class="section spells">
+          <div class="section spells selected">
             <div class="title">Spells</div>
             <div class="content">
               <div class="title">Level 1</div>
               <div class="item spell">
                   <div class="title">Inflict Wounds</div>
-                  <div class="level">1</div>
+                  <div class="level">2</div>
                   <div class="school">Necromancy</div>
                   <i class="fas fa-angle-up"></i>
                   <div class="info">
@@ -81,7 +148,7 @@
             
             </div>
           </div>
-          <div class="section feats selected">
+          <div class="section feats">
             <div class="title">Feats</div>
             <div class="content">
               <div class="item feat">

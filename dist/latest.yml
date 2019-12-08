@@ -1,0 +1,8 @@
+version: 1.0.0
+files:
+  - url: character-sheet-setup-1.0.0.exe
+    sha512: qtgVlb2H+p4pzZeAJ7W9ToZGr18vfDXQ8ffL+0PzIKYgFqcJ04FANbP2TnT9Fh3eZIMnFTv01RPAOiDS6QB+xg==
+    size: 47964411
+path: character-sheet-setup-1.0.0.exe
+sha512: qtgVlb2H+p4pzZeAJ7W9ToZGr18vfDXQ8ffL+0PzIKYgFqcJ04FANbP2TnT9Fh3eZIMnFTv01RPAOiDS6QB+xg==
+releaseDate: '2019-12-08T03:55:35.596Z'
