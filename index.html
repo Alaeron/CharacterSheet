@@ -249,14 +249,69 @@
               <input class="attribute-value" id="speed" value="30">
             </div>
           </div>
-          <div class="combat-hit-points">
-
+            <div class="combat-hit-points box-corners-top">
+              <input class="current-hit-points">
+              <span>/</span>
+              <input class="max-hit-points">
+              <input class="temp-hit-points">
+              <label class="current-hit-points">Current HP</label>
+              <span></span>
+              <label class="max-hit-points">Max HP</label>
+              <label class="temp-hit-points">Temp HP</label>
+            </div>
+            <div class="flex-wrap-row box-corners-bottom">
+              <div class="combat-hit-dice">
+                <input>
+                <label>Hit Dice</label>
+              </div>
+              <div class="combat-death-saves">
+                <div class="flex-wrap-row">
+                  <label>Successes</label>
+                  <input type="checkbox">
+                  <input type="checkbox">
+                  <input type="checkbox">
+                </div>
+                <div class="flex-wrap-row">
+                  <label>Failures</label>
+                  <input type="checkbox">
+                  <input type="checkbox">
+                  <input type="checkbox">
+                </div>
+                <label>Death Saves</label>
+              </div>
           </div>
 
+        </div>
+        <div class="attacks box-corners">
+          <label class="title">Attacks</label>
+          <div class="content">
+            <div class="attack">
+              <input>
+              <input>
+              <input>
+            </div>
+            <i class="fas fa-plus add"></i>
+          </div>
         </div>
       </div>
 
       <div class="section personality">
+          <div class="box-corners-top">
+            <label class="title">Personality Traits</label>
+            <textarea></textarea>
+          </div>
+          <div class="box">
+            <label class="title">Ideals</label>
+            <textarea></textarea>
+          </div>
+          <div class="box">
+            <label class="title">Bonds</label>
+            <textarea></textarea>
+          </div>
+          <div class="box-corners-bottom">
+            <label class="title">Flaws</label>
+            <textarea></textarea>
+          </div>
       </div>
 
     </div>
@@ -323,10 +378,32 @@
               
             </div>
           </div>
+          <div class="section inv-items">
+            <div class="title">Items</div>
+            <div class="content">
+              <div class="item inv-item">
+                <div class="title">Dice</div>
+                <i class="fas fa-angle-up"></i>
+                <div class="description">Set of 6 sided dice.</div>
+                <div class="edit-panel">                      
+                  <i class="fas fa-edit"></i>
+                  <i class="fas fa-minus-circle"></i>
+                </div>
+              </div>
+              <i class="fas fa-plus item add"></i>
+              
+            </div>
+          </div>
           <div class="section">
             <div class="title">Notes</div>
             <div class="content">
               <textarea id="notes"></textarea>
+            </div>
+          </div>
+          <div class="section background">
+            <div class="title">Background</div>
+            <div class="content">
+              <textarea id="background"></textarea>
             </div>
           </div>
         </div>

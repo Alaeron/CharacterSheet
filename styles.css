@@ -66,7 +66,8 @@ input[type=number]::-webkit-outer-spin-button {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-around;
-    width: 100%;
+    width: 100%;    
+    align-items: center;
 }
 
 /* Box Shapes */
@@ -164,6 +165,38 @@ input[type=number]::-webkit-outer-spin-button {
     padding: 2px;
 }
 
+.box, .box-corners, .box-corners-top, .box-corners-bottom {
+    background-color: var(--background-color-medium);
+    position: relative;
+    padding: 11px;
+    margin: 0px 0px 4px 0px;
+}
+.box > .title {
+    margin-top: -6px;
+    margin-bottom: 3px;
+}
+.box-corners:before, .box-corners-top:before {
+    content: "";
+    width: calc(100% - 20px);
+    height: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-bottom: 10px solid var(--background-color-medium);
+    border-left: 10px solid var(--background-color-dark);
+    border-right: 10px solid var(--background-color-dark);
+}
+.box-corners:after, .box-corners-bottom:after {
+    content: "";
+    width: calc(100% - 20px);
+    height: 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-top: 10px solid var(--background-color-medium);
+    border-left: 10px solid var(--background-color-dark);
+    border-right: 10px solid var(--background-color-dark);
+}  
 /* Character Sheet */
 .sheet {
     width: 100%;
@@ -179,7 +212,11 @@ input[type=number]::-webkit-outer-spin-button {
     padding: 5px;
     color: var(--text-color);
 }
-.sheet label {    
+.sheet .title {    
+    color: var(--title-color);
+}
+.sheet input {    
+    background: var(--background-color-medium-selected);
 }
 /* Section Header */
 .sheet .section.header {
@@ -269,8 +306,10 @@ input[type=number]::-webkit-outer-spin-button {
 }
 .sheet .section.combat .stats {
     display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
+    flex-flow: column;
+}
+.sheet .section.combat .stats > *:not(:first-child) {
+    background-color: var(--background-color-medium);
 }
 .sheet .section.combat .combat-stat {
     display: flex;
@@ -285,8 +324,97 @@ input[type=number]::-webkit-outer-spin-button {
     padding-bottom: 26px;
     padding-top: 2px;
 }
+.sheet .section.combat .stats .combat-hit-points {
+    background-color: var(--background-color-medium);
+    display: grid;
+    grid-template-columns: 1fr 16px 1fr 1fr;
+    text-align: center;
+    padding: 10px 4px 10px 4px;
+}
+.sheet .section.combat .stats .combat-hit-points input {
+    width: 45px;
+    height: 45px;
+    font-size: 22px;
+    justify-self: center;
+    margin: 1px;
+}
+.sheet .section.combat .stats .combat-death-saves label {
+    text-align: right;
+    margin-right: 3px;
+}
+.sheet .section.combat .stats .combat-death-saves > div {
+    justify-content: flex-end;
+}
+.sheet .section.combat .stats .combat-death-saves  {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+.sheet .section.combat .stats .combat-hit-dice {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+.sheet .section.combat .stats .combat-hit-dice input {
+    width: 45px;
+    height: 45px;
+    font-size: 22px;
+    justify-self: center;
+    margin: 1px;
+}
+.sheet .section.combat .stats .combat-hit-points span:first-of-type {
+    font-size: 30px;
+    text-align: center;
+    width: 12px;
+}
+.sheet .section.combat .attacks {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    margin-top: 8px;
+}
+.sheet .section.combat .attacks > *:last-of-type {
+    margin-bottom: 4px;
+}
+.sheet .section.combat .attacks > .content {
+    display: flex;
+    flex-flow: column;
+    align-items: stretch;
+}
+.sheet .section.combat .attacks > .content .attack {
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr;
+    grid-auto-flow: row;
+}
+.sheet .section.combat .attacks > .content input {
+    width: calc(100% - 2px);
+}
+.sheet .section.combat .attacks > .content .add {
+    background-color: var(--background-color-light);
+    font-size: 16px;
+    text-align: center;
+    margin: 8px 0px 0px 0px;
+    padding: 2px 0px 2px 0px;
+    width: calc(100% - 1px);
+}
+.sheet .section.combat .attacks > .content .add:hover {
+    background-color: var(--background-color-light-hover);
+    cursor: pointer;
+}
+
 .sheet .section.personality {
-    grid-column: 4;        
+    grid-column: 4;   
+    min-width: 90px;     
+}
+.sheet .section.personality > div {
+    display: flex;
+    flex-flow: column;
+    align-items: stretch;
+    text-align: center;
+}
+.sheet .section.personality > div textarea {
+    min-height: 100px;
+    resize: none;
 }
 
 /* Sidebar */
@@ -357,7 +485,7 @@ input[type=number]::-webkit-outer-spin-button {
     flex-flow: column;
 }
 .sidebar .section.selected {
-    height: calc(100% - 50px);
+    height: calc(100% - 88px);
 }
 .sidebar .section > .content {
     display: flex;
@@ -368,8 +496,12 @@ input[type=number]::-webkit-outer-spin-button {
     margin: 2px;
     overflow: hidden auto;
 }
-.sidebar .section.selected > .title {
+.sidebar .section > .title {
+    border-bottom: 1px solid var(--background-color-medium);
     background-color: var(--background-color-medium-selected);
+}
+.sidebar .section.selected > .title {
+    background-color: var(--background-color-medium);
 }
 .sidebar .section  > .title:hover {
     background-color: var(--background-color-light-hover);
@@ -515,4 +647,10 @@ textarea.edit-property {
 }
 .sidebar .section.feats .item.collapsed .description {
     display: none;
+}
+
+/* Background */
+#background {
+    height: 100%;
+    resize: none;
 }
