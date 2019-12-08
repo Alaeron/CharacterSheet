@@ -35,6 +35,14 @@ Templates.Feat = `
 </div>
 </div>
 `
+Templates.Attack = `
+<div class="attack">
+<input>
+<input>
+<input>
+<i class="fas fa-minus-circle"></i>
+</div>
+`
 
 /* Sidebar Collapse */
 document.querySelectorAll(".sidebar > i").forEach(function(element) {
@@ -247,6 +255,28 @@ function feat_save(event) {
     
     event.target.remove()
     itemElement.classList.remove('editing')
+}
+
+/* Auto Select All */
+document.querySelectorAll("input:not([type=checkbox])").forEach(function(element) {
+    element.addEventListener("focus", function(event) {
+        element.select()
+    })
+})
+
+/* Attacks */
+document.querySelector(".sheet .section.combat .attacks .add").addEventListener("click", add_attack)
+function add_attack(event) {
+    var attackElement = createElementFromHTML(Templates.Attack)
+    var attackContainer = document.querySelector(".sheet .section.combat .attacks .content")
+
+    attackElement.querySelector(".fa-minus-circle").addEventListener("click", remove_attack)
+
+    attackContainer.insertBefore(attackElement, event.target)
+}
+document.querySelector(".sheet .section.combat .attacks .attack .remove").addEventListener("click", remove_attack)
+function remove_attack(event) {
+    event.target.closest('.attack').remove()
 }
 
 /* Utility Functions */
