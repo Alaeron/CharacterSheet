@@ -351,15 +351,17 @@ input[type=number]::-webkit-outer-spin-button {
     align-items: center;
 }
 .sheet .section.combat .stats .combat-hit-dice {
-    display: flex;
-    flex-flow: column;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    justify-items: center;
+    width: 50%;
 }
 .sheet .section.combat .stats .combat-hit-dice input {
-    width: 45px;
+    width: 58px;
     height: 45px;
     font-size: 22px;
-    justify-self: center;
+    text-align: center;
     margin: 1px;
 }
 .sheet .section.combat .stats .combat-hit-points span:first-of-type {
@@ -380,14 +382,27 @@ input[type=number]::-webkit-outer-spin-button {
     display: flex;
     flex-flow: column;
     align-items: stretch;
+    width: 100%;
 }
 .sheet .section.combat .attacks > .content .attack {
     display: grid;
-    grid-template-columns: 2fr 1fr 2fr;
+    grid-template-columns: 2fr 1fr 2fr 16px;
     grid-auto-flow: row;
+    padding-top: 2px;
+}
+.sheet .section.combat .attacks > .content .attack i {
+    font-size: 14px;
+    padding: 4px;
+    width: 14px;
+    height: 14px;
+}
+.sheet .section.combat .attacks > .content .attack i:hover::before {
+    background-color: var(--background-color-medium-hover);
+    cursor: pointer;
 }
 .sheet .section.combat .attacks > .content input {
     width: calc(100% - 2px);
+    font-size: 14px;
 }
 .sheet .section.combat .attacks > .content .add {
     background-color: var(--background-color-light);
@@ -400,6 +415,30 @@ input[type=number]::-webkit-outer-spin-button {
 .sheet .section.combat .attacks > .content .add:hover {
     background-color: var(--background-color-light-hover);
     cursor: pointer;
+}
+
+.sheet .section.combat .spell-slots {
+    text-align: center;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+.sheet .section.combat .spell-slots > .content {
+    display: grid;
+    grid-template-columns: repeat(2, 40px 50px 50px);
+    grid-template-rows: repeat(5, auto);
+    gap: 2px;
+    grid-auto-flow: column;
+    height: 130px;
+    padding-top: 6px;
+}
+.sheet .section.combat .spell-slots > .content label {
+    text-align: right;
+    padding-right: 3px;
+}
+.sheet .section.combat .spell-slots > .content input {
+    text-align: center;
+    font-size: 16px;
 }
 
 .sheet .section.personality {
