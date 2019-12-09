@@ -206,6 +206,8 @@ input[type=number]::-webkit-outer-spin-button {
     padding-left: 30px;
     padding-right: 30px;
     max-width: 1800px;
+    max-height: 100vh;
+    overflow: hidden auto;
 }
 .sheet .section {
     /* border: 1px solid var(--border-color-medium); */
@@ -585,6 +587,10 @@ input[type=number]::-webkit-outer-spin-button {
 .sidebar .character > i:hover {
     background-color: var(--background-color-medium-hover);
 }
+.sidebar .character.selected {
+    background-color: var(--background-color-light-selected);
+    border: 2px solid var(--background-color-light-selected);
+}
 .sidebar .character:hover {
     background-color: var(--background-color-light-hover);
     border: 2px solid var(--background-color-light-hover);
@@ -673,6 +679,7 @@ textarea.edit-property {
     padding-top: 2px;
 }
 .sidebar .section .spell.collapsed .description,
+.sidebar .section .inv-item.collapsed .description,
 .sidebar .section .spell.collapsed .school,
 .sidebar .section .item.collapsed .edit-panel
  {
@@ -689,7 +696,7 @@ textarea.edit-property {
 }
 
 /* Background */
-#background {
+#backstory {
     height: 100%;
     resize: none;
 }

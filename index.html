@@ -20,17 +20,6 @@
           <i class="fas fa-folder-open" title="Open Folder"></i>
           <i class="fas fa-save" title="Save Roster"></i>
           <i class="fas fa-plus" title="New Character"></i>
-          <i class="fas fa-file-import" title="Import Character"></i>
-          <i class="fas fa-file-export" title="Export Character"></i>
-        </div>
-        <div class="item character">
-          <div class="title">Blood</div>
-          <i class="fas fa-minus-circle"></i>
-          <div class="info">
-            <div class="race">Warforged</div>
-            <div class="class">Cleric</div>
-            <div class="level">1</div>
-          </div>
         </div>
       </div>
 
@@ -93,42 +82,42 @@
 
       <div class="section skills">      
         <div class="labeled-single">
-          <input class="value" value="5">
+          <input id="inpiration" class="value" value="5">
           <label>Inspiration</label>
         </div>    
         <div class="labeled-single">
-          <input class="value" value="+2">
+          <input id="proficiency" class="value" value="+2">
           <label>Proficiency Bonus</label>
         </div>
         <div class="skill-group">
           <label class="title">Saving Throws</label>
           <div class="skill">
-            <input class="skill-proficiency" class="skill-strength-proficient" type="checkbox">
+            <input class="skill-proficiency" id="skill-strength-proficient" type="checkbox">
             <input class="skill-value" id="skill-strength">
             <label for="skill-strength">Strength</label>
           </div>
           <div class="skill">
-            <input class="skill-proficiency" class="skill-dexterity-proficient" type="checkbox">
+            <input class="skill-proficiency" id="skill-dexterity-proficient" type="checkbox">
             <input class="skill-value" id="skill-dexterity">
             <label for="skill-dexterity">Dexterity</label>
           </div>
           <div class="skill">
-            <input class="skill-proficiency" class="skill-constitution-proficient" type="checkbox">
+            <input class="skill-proficiency" id="skill-constitution-proficient" type="checkbox">
             <input class="skill-value" id="skill-constitution">
             <label for="skill-constitution">Constitution</label>
           </div>
           <div class="skill">
-            <input class="skill-proficiency" class="skill-intelligence-proficient" type="checkbox">
+            <input class="skill-proficiency" id="skill-intelligence-proficient" type="checkbox">
             <input class="skill-value" id="skill-intelligence">
             <label for="skill-intelligence">Intelligence</label>
           </div>
           <div class="skill">
-            <input class="skill-proficiency" class="skill-wisdom-proficient" type="checkbox">
+            <input class="skill-proficiency" id="skill-wisdom-proficient" type="checkbox">
             <input class="skill-value" id="skill-wisdom">
             <label for="skill-wisdom">Wisdom</label>
           </div>
           <div class="skill">
-            <input class="skill-proficiency" class="skill-charisma-proficient" type="checkbox">
+            <input class="skill-proficiency" id="skill-charisma-proficient" type="checkbox">
             <input class="skill-value" id="skill-charisma">
             <label for="skill-charisma">Charisma</label>
           </div>
@@ -228,7 +217,7 @@
             </div>
           </div>   
           <div class="labeled-single">
-            <input class="value" value="+2">
+            <input class="value" id="passive-wisdom" value="+2">
             <label>Passive Wisdom (Perception)</label>
           </div>
       </div>
@@ -250,10 +239,10 @@
             </div>
           </div>
             <div class="combat-hit-points box-corners-top">
-              <input class="current-hit-points">
+              <input class="current-hit-points" id="current-hit-points">
               <span>/</span>
-              <input class="max-hit-points">
-              <input class="temp-hit-points">
+              <input id="max-hit-points" class="max-hit-points">
+              <input id="temp-hit-points" class="temp-hit-points">
               <label class="current-hit-points">Current HP</label>
               <span></span>
               <label class="max-hit-points">Max HP</label>
@@ -261,23 +250,23 @@
             </div>
             <div class="flex-wrap-row box-corners-bottom">
               <div class="combat-hit-dice">
-                <input>
-                <input>
+                <input id="hit-dice">
+                <input id="current-hit-dice">
                 <label>Hit Dice</label>
                 <label>Total</label>
               </div>
               <div class="combat-death-saves">
                 <div class="flex-wrap-row">
                   <label>Successes</label>
-                  <input type="checkbox">
-                  <input type="checkbox">
-                  <input type="checkbox">
+                  <input type="checkbox" id="death-save-success-01">
+                  <input type="checkbox" id="death-save-success-02">
+                  <input type="checkbox" id="death-save-success-03">
                 </div>
                 <div class="flex-wrap-row">
                   <label>Failures</label>
-                  <input type="checkbox">
-                  <input type="checkbox">
-                  <input type="checkbox">
+                  <input type="checkbox" id="death-save-failure-01">
+                  <input type="checkbox" id="death-save-failure-02">
+                  <input type="checkbox" id="death-save-failure-03">
                 </div>
                 <label>Death Saves</label>
               </div>
@@ -292,41 +281,35 @@
             <label>3rd</label>
             <label>4th</label>
             <label>5th</label>
-            <input>
-            <input>
-            <input>
-            <input>
-            <input>
-            <input>
-            <input>
-            <input>
-            <input>
-            <input>
+            <input id="spell-slots-1">
+            <input id="spell-slots-2">
+            <input id="spell-slots-3">
+            <input id="spell-slots-4">
+            <input id="spell-slots-5">
+            <input id="spell-slots-max-1">
+            <input id="spell-slots-max-2">
+            <input id="spell-slots-max-3">
+            <input id="spell-slots-max-4">
+            <input id="spell-slots-max-5">
             <label>6th</label>
             <label>7th</label>
             <label>8th</label>
             <label>9th</label>
             <label></label>
-            <input>
-            <input>
-            <input>
-            <input>
+            <input id="spell-slots-6">
+            <input id="spell-slots-7">
+            <input id="spell-slots-8">
+            <input id="spell-slots-9">
             <div></div>
-            <input>
-            <input>
-            <input>
-            <input>
+            <input id="spell-slots-max-6">
+            <input id="spell-slots-max-7">
+            <input id="spell-slots-max-8">
+            <input id="spell-slots-max-9">
           </div>
         </div>
         <div class="attacks box-corners">
           <label class="title">Attacks</label>
           <div class="content">
-            <div class="attack">
-              <input>
-              <input>
-              <input>
-              <i class="fas fa-minus-circle remove"></i>
-            </div>
             <i class="fas fa-plus add"></i>
           </div>
         </div>
@@ -335,19 +318,19 @@
       <div class="section personality">
           <div class="box-corners-top">
             <label class="title">Personality Traits</label>
-            <textarea></textarea>
+            <textarea id="personality"></textarea>
           </div>
           <div class="box">
             <label class="title">Ideals</label>
-            <textarea></textarea>
+            <textarea id="ideals"></textarea>
           </div>
           <div class="box">
             <label class="title">Bonds</label>
-            <textarea></textarea>
+            <textarea id="bonds"></textarea>
           </div>
           <div class="box-corners-bottom">
             <label class="title">Flaws</label>
-            <textarea></textarea>
+            <textarea id="flaws"></textarea>
           </div>
       </div>
 
@@ -357,21 +340,21 @@
     <div class="sidebar sidebar-right">
         <i class="fas fa-angle-double-right"></i>
         <div class="content">
-          <div class="section spells selected">
+          <div class="section spells">
             <div class="title">Spells</div>
             <div class="content">
               <div class="title">Level 1</div>
               <div class="item spell">
-                  <div class="title">Inflict Wounds</div>
-                  <div class="level">2</div>
-                  <div class="school">Necromancy</div>
+                  <div class="title property">Inflict Wounds</div>
+                  <div class="level property">2</div>
+                  <div class="school property">Necromancy</div>
                   <i class="fas fa-angle-up"></i>
                   <div class="info">
-                    <div class="range">Touch</div>
-                    <div class="time">1 action</div>
-                    <div class="components">V,S</div>
-                    <div class="duration">Instantaneous</div>
-                    <div class="description">Make a melee spell attack against a creature you can reach. On a hit, the target takes 3d10 necrotic damage. At Higher Levels. When you cast this spell using a spell slot of 2nd level or higher, the damage increases by 1d10 for each slot level above 1st.</div>
+                    <div class="range property">Touch</div>
+                    <div class="time property">1 action</div>
+                    <div class="components property">V,S</div>
+                    <div class="duration property">Instantaneous</div>
+                    <div class="description property">Make a melee spell attack against a creature you can reach. On a hit, the target takes 3d10 necrotic damage. At Higher Levels. When you cast this spell using a spell slot of 2nd level or higher, the damage increases by 1d10 for each slot level above 1st.</div>
                   </div>
                   <div class="edit-panel">                      
                     <i class="fas fa-edit"></i>
@@ -379,16 +362,16 @@
                   </div>
               </div>
               <div class="item spell collapsed">
-                  <div class="title">Protection from Evil and Good</div>
-                  <div class="level">1</div>
-                  <div class="school">Abjuration</div>
+                  <div class="title property">Protection from Evil and Good</div>
+                  <div class="level property">1</div>
+                  <div class="school property">Abjuration</div>
                   <i class="fas fa-angle-down"></i>
                   <div class="info">
-                    <div class="range">Touch</div>
-                    <div class="time">1 action</div>
-                    <div class="components">V,S,M</div>
-                    <div class="duration">Concentration &#x3C;10min </div>
-                    <div class="description">Until the spell ends, one willing creature you touch is protected against certain types of creatures: aberrations, celestials, elementals, fey, fiends, and undead. The protection grants several benefits. Creatures of those types have disadvantage on attack rolls against the target. The target also can't be charmed, frightened, or possessed by them. If the target is already charmed, frightened, or possessed by such a creature, the target has advantage on any new saving throw against the relevant effect.</div>
+                    <div class="range property">Touch</div>
+                    <div class="time property">1 action</div>
+                    <div class="components property">V,S,M</div>
+                    <div class="duration property">Concentration &#x3C;10min </div>
+                    <div class="description property">Until the spell ends, one willing creature you touch is protected against certain types of creatures: aberrations, celestials, elementals, fey, fiends, and undead. The protection grants several benefits. Creatures of those types have disadvantage on attack rolls against the target. The target also can't be charmed, frightened, or possessed by them. If the target is already charmed, frightened, or possessed by such a creature, the target has advantage on any new saving throw against the relevant effect.</div>
                   </div>
                   <div class="edit-panel">                      
                     <i class="fas fa-edit"></i>
@@ -403,9 +386,9 @@
             <div class="title">Feats</div>
             <div class="content">
               <div class="item feat">
-                <div class="title">Constructed Resilience</div>
+                <div class="title property">Constructed Resilience</div>
                 <i class="fas fa-angle-up"></i>
-                <div class="description">You were created to have remarkable fortitude, represented by the follow­ing benefits: You have advantage on saving throws against being poisoned, and you have resistance to poison damage. You don't need to eat, drink, or breathe. You are immune to disease. You don't need to sleep, and magic can't put you to sleep. </div>
+                <div class="description property">You were created to have remarkable fortitude, represented by the follow­ing benefits: You have advantage on saving throws against being poisoned, and you have resistance to poison damage. You don't need to eat, drink, or breathe. You are immune to disease. You don't need to sleep, and magic can't put you to sleep. </div>
                 <div class="edit-panel">                      
                   <i class="fas fa-edit"></i>
                   <i class="fas fa-minus-circle"></i>
@@ -419,9 +402,9 @@
             <div class="title">Items</div>
             <div class="content">
               <div class="item inv-item">
-                <div class="title">Dice</div>
+                <div class="title property">Dice</div>
                 <i class="fas fa-angle-up"></i>
-                <div class="description">Set of 6 sided dice.</div>
+                <div class="description property">Set of 6 sided dice.</div>
                 <div class="edit-panel">                      
                   <i class="fas fa-edit"></i>
                   <i class="fas fa-minus-circle"></i>
@@ -437,10 +420,10 @@
               <textarea id="notes"></textarea>
             </div>
           </div>
-          <div class="section background">
-            <div class="title">Background</div>
+          <div class="section backstory">
+            <div class="title">Backstory</div>
             <div class="content">
-              <textarea id="background"></textarea>
+              <textarea id="backstory"></textarea>
             </div>
           </div>
         </div>
@@ -449,5 +432,6 @@
 
     <!-- You can also require other files to run in this process -->
     <script src="./renderer.js"></script>
+    <script src="./files.js"></script>
   </body>
 </html>
