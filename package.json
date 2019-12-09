@@ -6,18 +6,16 @@
   "scripts": {
     "start": "electron ."
   },
-  "repository": "https://github.com/electron/electron-quick-start",
-  "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
-  ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
+  "repository": "https://github.com/Alaeron/CharacterSheet",
+  "keywords": [],
+  "author": {
+    "name": "Joshua Cummings",
+    "email": "jmcstarwars@gmail.com"
+  },
+  "license": "GPL-3.0-only",
   "devDependencies": {
-    "electron": "^7.1.3"
+    "electron": "^7.1.3",
+    "electron-builder": "^21.2.0"
   },
   "dependencies": {}
 }
