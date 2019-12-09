@@ -176,7 +176,16 @@ function save_file_click(event) {
     })
     var character = get_character()
     fs.writeFileSync(path, JSON.stringify(character), 'utf-8')
+    
+    var charContainer = document.querySelector(".sidebar-left .content")
     build_char_list(p.dirname(path))
+    clear_all()
+    document.querySelectorAll(".sidebar-left .content .item .title").forEach(function(element, item) {
+        if (element.textContent == character.name) {
+            element.closest(".item").click()
+        }
+    })
+    
 }
 document.querySelector(".sidebar .file-panel .fa-folder-open").addEventListener("click", open_folder_click)
 function open_folder_click(event) {
@@ -193,28 +202,79 @@ function open_folder_click(event) {
     clear_all()
     build_char_list(path[0])    
 }
+document.querySelector(".sidebar .file-panel .fa-plus").addEventListener("click", add_character_click)
+function add_character_click(event) {
+    const { dialog } = require('electron').remote
+    const fs = require('fs');
+    const p = require('path');
+    var charContainer = document.querySelector(".sidebar-left .content")
+    var characterElement = createElementFromHTML(Templates.Character)
+    var path = dialog.showSaveDialogSync({
+        filters: [{
+            name: 'json',
+            extensions: ['json']
+        }]
+    })
+    if (path) {
+        clear_all()
+        characterElement.addEventListener("click", open_char_click)
+        characterElement.setAttribute("data-path", path)
+
+        fs.writeFileSync(path, JSON.stringify(get_character()))
+        charContainer.appendChild(characterElement)
+        
+        characterElement.parentElement.querySelectorAll(".item").forEach(function(element, index) {
+            element.classList.remove("selected")
+        })
+        characterElement.classList.add("selected")
+        build_char_list(p.dirname(path))
+    }
+
+}
 function open_char_click(event) {
     const fs = require('fs');
     var charElement = event.target.closest(".item")
-    var character = fs.readFileSync(charElement.getAttribute('data-path'))
+    var path = charElement.getAttribute('data-path')
+    
+    var character = fs.readFileSync(path)
     charElement.parentElement.querySelectorAll(".item").forEach(function(element, index) {
         element.classList.remove("selected")
     })
     charElement.classList.add("selected")
     load_character(JSON.parse(character))
 }
+function delete_character_click(event) {
+    const fs = require('fs');
+    const p = require('path');
+    var charContainer = document.querySelector(".sidebar-left .content")
+    var characterElement = event.target.closest(".item")
+    if (confirm("Are you sure you want to delete " + charContainer.querySelector(".title").textContent + "?")) {
+        var path = characterElement.getAttribute("data-path")
+        fs.unlinkSync(path)
+        build_char_list(p.dirname(path))
+        clear_all()
+    }
+    event.stopPropagation()
+
+}
 
 function get_file_info(path) {
     const fs = require('fs');
     var character = fs.readFileSync(path)
-    character = JSON.parse(character)
-    var char = {}
-    char.name = character.name
-    char.class = character.class
-    char.level = character.level
-    char.race = character.race
-    char.path = path
-    return char
+    try {
+        var char = {}
+        character = JSON.parse(character)
+        char.name = character.name
+        char.class = character.class
+        char.level = character.level
+        char.race = character.race
+        char.path = path
+        return char
+    } 
+    catch {
+        return false
+    }
+    
 }
 
 function build_char_list(path) {
@@ -224,12 +284,19 @@ function build_char_list(path) {
     var characters = []
     fs.readdirSync(path).forEach(file => {
         if (file.endsWith(".json")) {
-            characters.push(get_file_info(p.join(path, file)));
+            var charInfo = get_file_info(p.join(path, file))
+            if (charInfo) {
+                characters.push(charInfo);
+            }
         }
     });
 
     var charContainer = document.querySelector(".sidebar-left .content")
+    var selectedPath = ""
     while (!charContainer.lastChild.classList || !charContainer.lastChild.classList.contains("file-panel")) {
+        if (charContainer.lastChild.classList && charContainer.lastChild.classList.contains("selected")){
+            selectedPath = charContainer.lastChild.getAttribute("data-path")
+        }
         charContainer.removeChild(charContainer.lastChild)
     }
 
@@ -241,6 +308,11 @@ function build_char_list(path) {
         charElement.querySelector(".level").innerText = element.level
         charElement.setAttribute('data-path', element.path)
         charElement.addEventListener("click", open_char_click)
+        charElement.querySelector(".fa-minus-circle").addEventListener("click", delete_character_click)
+        if (element.path == selectedPath) {
+            charElement.click()
+        }
+
         charContainer.appendChild(charElement)
     })
 }

@@ -56,11 +56,11 @@ Templates.Item = `
 `
 Templates.Character = `
 <div class="item character" data-path="">
-<div class="title"></div>
+<div class="title">New Character</div>
 <i class="fas fa-minus-circle"></i>
 <div class="info">
-  <div class="race"></div>
-  <div class="class"></div>
+  <div class="race">Race</div>
+  <div class="class">Class</div>
   <div class="level"></div>
 </div>
 </div>`
