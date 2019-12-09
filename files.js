@@ -215,6 +215,8 @@ function open_folder_click(event) {
     clear_all()
     build_char_list(path[0])    
 }
+
+/* add character */
 document.querySelector(".sidebar .file-panel .fa-plus").addEventListener("click", add_character_click)
 function add_character_click(event) {
     var charContainer = document.querySelector(".sidebar-left .content")
@@ -227,20 +229,36 @@ function add_character_click(event) {
         element.classList.remove("selected")
     })
     characterElement.classList.add("selected")
+    characterElement.querySelector(".fa-minus-circle").addEventListener("click", delete_character_click)
+    characterElement.addEventListener("click", open_char_click)
 
 }
 /* load a character from file */
 function open_char_click(event) {
     const fs = require('fs');
+
+    if (check_dirty()){
+        if (!confirm("You have unsaved changes. Are you sure you want to continue without saving?")) {
+            return false
+        }
+    }
+
     var charElement = event.target.closest(".item")
     var path = charElement.getAttribute('data-path')
-    
-    var character = fs.readFileSync(path)
-    charElement.parentElement.querySelectorAll(".item").forEach(function(element, index) {
-        element.classList.remove("selected")
-    })
-    charElement.classList.add("selected")
-    load_character(JSON.parse(character))
+    if (path) {    
+        var character = fs.readFileSync(path)
+        charElement.parentElement.querySelectorAll(".item").forEach(function(element, index) {
+            element.classList.remove("selected")
+        })
+        charElement.classList.add("selected")
+        load_character(JSON.parse(character))
+    } else {
+        charElement.parentElement.querySelectorAll(".item").forEach(function(element, index) {
+            element.classList.remove("selected")
+        })
+        charElement.classList.add("selected")
+        clear_all()
+    }
 }
 /* delete a character */
 function delete_character_click(event) {
@@ -248,10 +266,14 @@ function delete_character_click(event) {
     const p = require('path');
     var charContainer = document.querySelector(".sidebar-left .content")
     var characterElement = event.target.closest(".item")
-    if (confirm("Are you sure you want to delete " + charContainer.querySelector(".title").textContent + "?")) {
+    if (confirm("Are you sure you want to delete " + characterElement.querySelector(".title").textContent + "?")) {
         var path = characterElement.getAttribute("data-path")
-        fs.unlinkSync(path)
-        build_char_list(p.dirname(path))
+        if (path) {
+            fs.unlinkSync(path)
+            build_char_list(p.dirname(path))
+        } else {
+            characterElement.remove()
+        }
         clear_all()
     }
     event.stopPropagation()
@@ -315,6 +337,23 @@ function build_char_list(path) {
 
         charContainer.appendChild(charElement)
     })
+}
+function check_dirty() {
+    var charContainer = document.querySelector(".sidebar-left .content")
+    var charElement = charContainer.querySelector(".item.selected")
+
+    if (charElement && charElement.getAttribute("data-path")) {
+        const fs = require('fs');
+        var path = charElement.getAttribute("data-path")
+        var character = fs.readFileSync(path)
+        if (character != JSON.stringify(get_character())) {
+            return true
+        }
+    }
+    if (charElement && ! charElement.getAttribute("data-path")) {
+        return true
+    }
+    return false
 }
 function init() {
     clear_all()
