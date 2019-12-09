@@ -24,14 +24,13 @@
 html {
     display: grid;
     height: 100%;
-    overflow:hidden;
+    overflow: auto hidden;
 }
 body {
     background: var(--background-color-dark);
     margin: 0px;
-    display: flex;
-    flex-flow: row;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: auto 6fr auto;
 }
 textarea, input {
     background-color: var(--background-color-dark);
@@ -44,6 +43,7 @@ i {
 }
 ::-webkit-scrollbar {
     width: 10px;
+    height: 10px;
 }
 ::-webkit-scrollbar-track {
     background-color: var(--background-color-medium);
@@ -207,7 +207,7 @@ input[type=number]::-webkit-outer-spin-button {
     padding-right: 30px;
     max-width: 1800px;
     max-height: 100vh;
-    overflow: hidden auto;
+    overflow: auto;
 }
 .sheet .section {
     /* border: 1px solid var(--border-color-medium); */
@@ -461,7 +461,7 @@ input[type=number]::-webkit-outer-spin-button {
 /* Sidebar */
 .sidebar {
     background: var(--background-color-medium);
-    min-width: 300px;
+    min-width: 200px;
     max-width: 400px;
     transition: .1s;
     position: relative;
@@ -470,6 +470,7 @@ input[type=number]::-webkit-outer-spin-button {
     padding-top: 7px;
     color: var(--text-color);
     height: 100vh;
+    width: 20vw;
 }
 .sidebar > i {
     padding: 5px;
@@ -479,10 +480,10 @@ input[type=number]::-webkit-outer-spin-button {
     line-height: 20px;
 }
 .sidebar-left > i {
-    right: -32px;
+    right: -31px;
 }
 .sidebar-right > i {
-    left: -32px;
+    left: -31px;
 }
 .sidebar i:hover {
     background-color: var(--background-color-light-hover);

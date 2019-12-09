@@ -161,23 +161,38 @@ function set_attacks(attacks) {
     })
     return true
 }
-
+/* saving files */
 document.querySelector(".sidebar .file-panel .fa-save").addEventListener("click", save_file_click)
 function save_file_click(event) {
     const p = require('path');
-    const { dialog } = require('electron').remote
+    const { dialog, BrowserWindow } = require('electron').remote
     const fs = require('fs');
 
-    var path = dialog.showSaveDialogSync({
-        filters: [{
-            name: 'json',
-            extensions: ['json']
-        }]
-    })
+    var charContainer = document.querySelector(".sidebar-left .content")
+    var charElement = charContainer.querySelector(".item.selected")
+
+    if (!charElement) {
+        alert("Please select a character first!")
+        return false
+    }
+
+    var path = charElement.getAttribute('data-path')
+
+    if (!path) {
+        path = dialog.showSaveDialogSync(BrowserWindow.getFocusedWindow(), {
+            filters: [{
+                name: 'json',
+                extensions: ['json']
+            }]
+        })
+        if (!path.endsWith(".json")) {
+            path += ".json"
+        }
+        charElement.setAttribute('data-path', path)
+    }
     var character = get_character()
     fs.writeFileSync(path, JSON.stringify(character), 'utf-8')
     
-    var charContainer = document.querySelector(".sidebar-left .content")
     build_char_list(p.dirname(path))
     clear_all()
     document.querySelectorAll(".sidebar-left .content .item .title").forEach(function(element, item) {
@@ -187,16 +202,14 @@ function save_file_click(event) {
     })
     
 }
+
+/* opening folder */
 document.querySelector(".sidebar .file-panel .fa-folder-open").addEventListener("click", open_folder_click)
 function open_folder_click(event) {
-    const { dialog } = require('electron').remote
+    const { dialog, BrowserWindow } = require('electron').remote
     const fs = require('fs');
 
-    var path = dialog.showOpenDialogSync({
-        filters: [{
-            name: 'json',
-            extensions: ['json']
-        }],
+    var path = dialog.showOpenDialogSync(BrowserWindow.getFocusedWindow(), {
         properties: ['openDirectory']
     })
     clear_all()
@@ -204,33 +217,19 @@ function open_folder_click(event) {
 }
 document.querySelector(".sidebar .file-panel .fa-plus").addEventListener("click", add_character_click)
 function add_character_click(event) {
-    const { dialog } = require('electron').remote
-    const fs = require('fs');
-    const p = require('path');
     var charContainer = document.querySelector(".sidebar-left .content")
     var characterElement = createElementFromHTML(Templates.Character)
-    var path = dialog.showSaveDialogSync({
-        filters: [{
-            name: 'json',
-            extensions: ['json']
-        }]
-    })
-    if (path) {
-        clear_all()
-        characterElement.addEventListener("click", open_char_click)
-        characterElement.setAttribute("data-path", path)
+    clear_all()
 
-        fs.writeFileSync(path, JSON.stringify(get_character()))
-        charContainer.appendChild(characterElement)
-        
-        characterElement.parentElement.querySelectorAll(".item").forEach(function(element, index) {
-            element.classList.remove("selected")
-        })
-        characterElement.classList.add("selected")
-        build_char_list(p.dirname(path))
-    }
+    charContainer.appendChild(characterElement)
+    
+    characterElement.parentElement.querySelectorAll(".item").forEach(function(element, index) {
+        element.classList.remove("selected")
+    })
+    characterElement.classList.add("selected")
 
 }
+/* load a character from file */
 function open_char_click(event) {
     const fs = require('fs');
     var charElement = event.target.closest(".item")
@@ -243,6 +242,7 @@ function open_char_click(event) {
     charElement.classList.add("selected")
     load_character(JSON.parse(character))
 }
+/* delete a character */
 function delete_character_click(event) {
     const fs = require('fs');
     const p = require('path');
