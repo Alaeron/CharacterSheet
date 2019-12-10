@@ -506,6 +506,7 @@ input[type=number]::-webkit-outer-spin-button {
     text-align: center;
     font-size: 16px;
     width: 100%;
+    height: 24px;
 }
 .sidebar .content {
     flex-grow: 1;
@@ -528,7 +529,7 @@ input[type=number]::-webkit-outer-spin-button {
     flex-flow: column;
 }
 .sidebar .section.selected {
-    height: calc(100% - 95px);
+    height: calc(100% - 121px);
 }
 .sidebar .section > .content {
     display: flex;
