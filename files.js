@@ -236,11 +236,24 @@ function add_character_click(event) {
 /* load a character from file */
 function open_char_click(event) {
     const fs = require('fs');
+    const { dialog, BrowserWindow } = require('electron').remote
 
     if (check_dirty()){
-        if (!confirm("You have unsaved changes. Are you sure you want to continue without saving?")) {
+        var result = dialog.showMessageBoxSync(BrowserWindow.getFocusedWindow(), {
+            title: "Unsaved Changes",
+            buttons: ["Cancel", "Yes"],
+            message: "You have unsaved changes. Are you sure you want to continue without saving?"
+        })
+        if (!result) {
             return false
         }
+    }
+
+    // Remove old char if no file associated
+    var charContainer = document.querySelector(".sidebar-left .content")
+    var oldCharElement = charContainer.querySelector(".item.selected")
+    if (oldCharElement && !oldCharElement.getAttribute("data-path")) {
+        oldCharElement.remove()
     }
 
     var charElement = event.target.closest(".item")
@@ -264,9 +277,17 @@ function open_char_click(event) {
 function delete_character_click(event) {
     const fs = require('fs');
     const p = require('path');
+    const { dialog, BrowserWindow } = require('electron').remote
+
     var charContainer = document.querySelector(".sidebar-left .content")
     var characterElement = event.target.closest(".item")
-    if (confirm("Are you sure you want to delete " + characterElement.querySelector(".title").textContent + "?")) {
+
+    var result = dialog.showMessageBoxSync(BrowserWindow.getFocusedWindow(), {
+        title: "Delete Confirmation",
+        buttons: ["Cancel", "Yes"],
+        message: "Are you sure you want to delete " + characterElement.querySelector(".title").textContent + "?"
+    })
+    if (result) {
         var path = characterElement.getAttribute("data-path")
         if (path) {
             fs.unlinkSync(path)
