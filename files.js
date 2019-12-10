@@ -193,14 +193,7 @@ function save_file_click(event) {
     var character = get_character()
     fs.writeFileSync(path, JSON.stringify(character), 'utf-8')
     
-    build_char_list(p.dirname(path))
-    clear_all()
-    document.querySelectorAll(".sidebar-left .content .item .title").forEach(function(element, item) {
-        if (element.textContent == character.name) {
-            element.closest(".item").click()
-        }
-    })
-    
+    build_char_list(p.dirname(path))    
 }
 
 /* opening folder */

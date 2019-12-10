@@ -1,6 +1,6 @@
 {
   "name": "character-sheet",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Manage your dnd characters",
   "main": "main.js",
   "scripts": {
