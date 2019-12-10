@@ -528,7 +528,7 @@ input[type=number]::-webkit-outer-spin-button {
     flex-flow: column;
 }
 .sidebar .section.selected {
-    height: calc(100% - 88px);
+    height: calc(100% - 95px);
 }
 .sidebar .section > .content {
     display: flex;

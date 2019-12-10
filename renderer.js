@@ -64,7 +64,16 @@ Templates.Character = `
   <div class="level"></div>
 </div>
 </div>`
-
+Templates.Proficiency = `
+<div class="item proficiency">
+<div class="title property"></div>
+<i class="fas fa-angle-up"></i>
+<div class="description property"></div>
+<div class="edit-panel">                      
+  <i class="fas fa-edit"></i>
+  <i class="fas fa-minus-circle"></i>
+</div>
+</div>`
 /* Sidebar Collapse */
 document.querySelectorAll(".sidebar > i").forEach(function(element) {
     element.addEventListener("click", sidebar_toggle)
@@ -244,7 +253,7 @@ function add_feat(event) {
 
 /* Feat Collapse */
 document.querySelectorAll(".sidebar .section .feat > i").forEach(function(element) {
-    element.addEventListener("click", spell_toggle)
+    element.addEventListener("click", feat_toggle)
 })
 function feat_toggle(event) {
     event.target.parentElement.classList.toggle("collapsed")   
@@ -277,6 +286,76 @@ function begin_edit_feat(itemElement) {
 
 }
 function feat_save(event) {
+    var itemElement = event.target.closest('.item')
+    
+    var titleElement = itemElement.querySelector('.title')
+    var descriptionElement = itemElement.querySelector('.description')
+
+    unwrap_edit_property(titleElement)
+    unwrap_edit_property(descriptionElement)
+    
+    event.target.remove()
+    itemElement.querySelector(".fa-angle-up").click()
+    itemElement.classList.remove('editing')
+}
+
+
+/* Add Proficiency */
+document.querySelector(".sidebar .section.proficiencies .item.add").addEventListener("click", add_proficiency)
+function add_proficiency(event) {
+    var proficiencyElement = createElementFromHTML(Templates.Proficiency)
+    if (event === undefined) {
+        event = {}
+        event.target = document.querySelector(".sidebar .section.proficiencies .add")
+        proficiencyElement.classList.add("new-item")
+    }
+    var proficiencyContainer = document.querySelector(".sidebar-right .section.proficiencies .content")
+
+    proficiencyElement.querySelector(".edit-panel .fa-edit").addEventListener("click", proficiency_edit)
+    proficiencyElement.querySelector(".edit-panel .fa-minus-circle").addEventListener("click", item_delete)
+    proficiencyElement.querySelector(".fa-angle-up").addEventListener("click", proficiency_toggle)
+
+    begin_edit_proficiency(proficiencyElement)
+
+    proficiencyContainer.insertBefore(proficiencyElement, event.target)
+
+}
+
+/* Proficiency Collapse */
+document.querySelectorAll(".sidebar .section .proficiency > i").forEach(function(element) {
+    element.addEventListener("click", proficiency_toggle)
+})
+function proficiency_toggle(event) {
+    event.target.parentElement.classList.toggle("collapsed")   
+    event.target.classList.toggle("fa-angle-up")
+    event.target.classList.toggle("fa-angle-down")
+}
+
+/* Proficiency Editing */
+document.querySelectorAll(".sidebar .section .proficiency .edit-panel > i.fa-edit").forEach(function(element) {
+    element.addEventListener("click", proficiency_edit)
+})
+function proficiency_edit(event) {
+    var itemElement = event.target.closest('.item')
+    begin_edit_proficiency(itemElement)
+}
+function begin_edit_proficiency(itemElement) {    
+    itemElement.classList.add('editing')
+    
+    var titleElement = itemElement.querySelector('.title')
+    var descriptionElement = itemElement.querySelector('.description')
+
+    wrap_edit_property(titleElement, "Title")
+    wrap_edit_property(descriptionElement, "Description", 'textarea')
+
+    var saveElement = document.createElement('i')
+    saveElement.classList = "fas fa-save"
+    itemElement.querySelector(".edit-panel").appendChild(saveElement)
+
+    saveElement.addEventListener("click", proficiency_save)
+
+}
+function proficiency_save(event) {
     var itemElement = event.target.closest('.item')
     
     var titleElement = itemElement.querySelector('.title')

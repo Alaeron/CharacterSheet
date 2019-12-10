@@ -14,6 +14,7 @@ function get_character() {
     character.items = get_items()
     character.spells = get_spells()
     character.feats = get_feats()
+    character.proficiencies = get_proficiencies()
     character.attacks = get_attacks()
     character.notes = document.querySelector("#notes").value
     character.backstory = document.querySelector("#backstory").value
@@ -35,6 +36,7 @@ function load_character(character){
     set_items(character.items)
     set_spells(character.spells)
     set_feats(character.feats)
+    set_proficiencies(character.proficiencies)
     set_attacks(character.attacks)
     document.querySelector("#notes").value = character.notes
     document.querySelector("#backstory").value = character.backstory
@@ -42,8 +44,11 @@ function load_character(character){
 }
 function clear_all() {
     clear_sheet()
+    document.querySelector("#backstory").value = ""
+    document.querySelector("#notes").value = ""
     set_attacks()
     set_feats()
+    set_proficiencies()
     set_spells()
     set_items()
 }
@@ -85,6 +90,20 @@ function get_feats() {
         feats.push(properties)
     })
     return feats
+
+}
+function get_proficiencies() {
+    var proficiencyElements = document.querySelectorAll(".sidebar .section.proficiencies .item.proficiency")
+    var proficiencies = []
+    proficiencyElements.forEach(function(element, index) {
+        var propertyElements = element.querySelectorAll(".property")
+        var properties = []
+        propertyElements.forEach(function (element, index) {
+            properties.push(element.innerHTML)
+        })
+        proficiencies.push(properties)
+    })
+    return proficiencies
 
 }
 function get_attacks() {
@@ -144,6 +163,21 @@ function set_feats(feats) {
         })
         newFeatElement.classList.remove("new-item")
         newFeatElement.querySelector(".fa-save").click()
+    })
+    return true
+}
+function set_proficiencies(proficiencies) {
+    var proficiencyContainer = document.querySelector(".sidebar-right .section.proficiencies .content")
+    empty(proficiencyContainer)
+    if (!proficiencies) return false
+    proficiencies.forEach(function(element, index) {
+        add_proficiency()
+        var newProficiencyElement = proficiencyContainer.querySelector(".new-item")
+        newProficiencyElement.querySelectorAll(".property .edit-property").forEach(function(propElement, propIndex) {
+            propElement.value = element[propIndex]
+        })
+        newProficiencyElement.classList.remove("new-item")
+        newProficiencyElement.querySelector(".fa-save").click()
     })
     return true
 }
