@@ -463,6 +463,41 @@ function inv_item_save(event) {
     itemElement.classList.remove('editing')
 }
 
+/* Autocomplete */
+const autocomplete_base_url = "https://api.open5e.com"
+function bind_autocomplete(selector) {
+    var element = document.querySelector(selector)
+    if (!element) {
+        return false;
+    }
+    var url = element.getAttribute("data-url")
+    if (url) {
+        element.addEventListener("keyup", autocomplete_keyup)
+    }
+}
+function autocomplete_keyup(event) {
+    var net = require("electron").remote.net
+    
+    if (event.target.value.length <= 3) {
+        return false
+    }
+    var url = event.target.getAttribute("data-url")
+    const request = net.request(autocomplete_base_url + url)
+
+    request.on('response', response => {
+        var data = ''
+        response.on('data', (chunk) => {
+            data += chunk.toString()
+        })
+        response.on('end', (chunk) => {
+            console.log(JSON.parse(data))
+        })
+    })
+
+    request.end()
+}
+
+
 /* Utility Functions */
 function createElementFromHTML(htmlString) {
     var div = document.createElement('div');
