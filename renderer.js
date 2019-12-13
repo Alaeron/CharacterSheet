@@ -1,7 +1,7 @@
 // This file is required by the index.html file and will
 // be executed in the renderer process for that window.
-// No Node.js APIs are available in this process because
-// `nodeIntegration` is turned off. Use `preload.js` to
+// Node.js APIs are available in this process because
+// `nodeIntegration` is turned on. Use `preload.js` to
 // selectively enable features needed in the rendering
 // process.
 var Templates = {}
@@ -47,6 +47,11 @@ Templates.Item = `
 <div class="item inv-item">
 <div class="title property"></div>
 <i class="fas fa-angle-up"></i>
+<div class="info">
+<div class="weight property"></div>
+<div class="quick-ref property"></div>
+<div class="value property"></div>
+</div>
 <div class="description property"></div>
 <div class="edit-panel">                      
   <i class="fas fa-edit"></i>
@@ -438,8 +443,14 @@ function begin_edit_inv_item(itemElement) {
     
     var titleElement = itemElement.querySelector('.title')
     var descriptionElement = itemElement.querySelector('.description')
+    var valueElement = itemElement.querySelector('.value')
+    var weightElement = itemElement.querySelector('.weight')
+    var quickElement = itemElement.querySelector('.quick-ref')
 
     wrap_edit_property(titleElement, "Title")
+    wrap_edit_property(weightElement, "Weight")
+    wrap_edit_property(valueElement, "Value")
+    wrap_edit_property(quickElement, "Quick Ref")
     wrap_edit_property(descriptionElement, "Description", 'textarea')
 
     var saveElement = document.createElement('i')
@@ -454,9 +465,15 @@ function inv_item_save(event) {
     
     var titleElement = itemElement.querySelector('.title')
     var descriptionElement = itemElement.querySelector('.description')
+    var valueElement = itemElement.querySelector('.value')
+    var quickElement = itemElement.querySelector('.quick-ref')
+    var weightElement = itemElement.querySelector('.weight')
 
     unwrap_edit_property(titleElement)
     unwrap_edit_property(descriptionElement)
+    unwrap_edit_property(valueElement)
+    unwrap_edit_property(weightElement)
+    unwrap_edit_property(quickElement)
     
     event.target.remove()
     itemElement.querySelector(".fa-angle-up").click()
