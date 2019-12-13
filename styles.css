@@ -705,3 +705,21 @@ textarea.edit-property {
     height: 100%;
     resize: none;
 }
+
+/* Autocomplete */
+.autocomplete {
+    position: absolute;
+    left: 4px;
+    right: 4px;
+    text-align: left;
+    display: flex;
+    flex-flow: column;
+    background-color: var(--background-color-medium);
+}
+.autocomplete-item:hover {
+    cursor: pointer;
+    background-color: var(--background-color-medium-hover);
+}
+.autocomplete-item {
+    padding: 2px;
+}

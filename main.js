@@ -52,3 +52,20 @@ app.on('activate', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+const ipc = require("electron").ipcMain;
+const {net} = require("electron"); 
+
+ipc.on("api-request", function(evt, arg){
+    const request = net.request(arg)
+    request.on('response', (response) => {
+      var data = ""
+      response.on('data', (chunk) => {
+        data += chunk
+      })
+      response.on('end', () => {
+        mainWindow.webContents.send("api-response", JSON.parse(data))
+      })
+    })
+    request.end()
+})

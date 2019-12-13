@@ -7,7 +7,7 @@
 var Templates = {}
 Templates.Spell = `
 <div class="item spell">
-<div class="title property"></div>
+<div class="title property" data-url="/spells"></div>
 <div class="level property"></div>
 <div class="school property"></div>
 <i class="fas fa-angle-up"></i>
@@ -465,40 +465,55 @@ function inv_item_save(event) {
 
 /* Autocomplete */
 const autocomplete_base_url = "https://api.open5e.com"
-function bind_autocomplete(selector) {
-    var element = document.querySelector(selector)
+function bind_autocomplete(element) {
     if (!element) {
         return false;
     }
     var url = element.getAttribute("data-url")
     if (url) {
+        var autoElement = createElementFromHTML('<div class="autocomplete"></div>')
+        element.parentElement.appendChild(autoElement)
         element.addEventListener("keyup", autocomplete_keyup)
     }
 }
-function autocomplete_keyup(event) {
-    var net = require("electron").remote.net
-    
+function autocomplete_keyup(event) {    
     if (event.target.value.length <= 3) {
+        var autoElement = document.querySelector(".autocomplete")
+        while (autoElement.firstChild) {
+            autoElement.firstChild.remove()
+        }
         return false
     }
     var url = event.target.getAttribute("data-url")
-    const request = net.request(autocomplete_base_url + url)
-
-    request.on('response', response => {
-        var data = ''
-        response.on('data', (chunk) => {
-            data += chunk.toString()
-        })
-        response.on('end', (chunk) => {
-            console.log(JSON.parse(data))
-        })
-    })
-
-    request.end()
+    if (!url) {
+        return false
+    }
+    api_request(url + "/?search=" + event.target.value)
 }
 
 
 /* Utility Functions */
+const ipc = require("electron").ipcRenderer;
+
+function api_request(url) {
+    ipc.send("api-request", autocomplete_base_url + url)
+}
+ipc.on("api-response", function(evt, data) {
+    var autoElement = document.querySelector(".autocomplete")
+    while (autoElement.firstChild) {
+        autoElement.firstChild.remove()
+    }
+    data.results.forEach(function(item, index) {
+        var itemElement = createElementFromHTML('<div class="autocomplete-item">' + item.name + '</div>')
+        for (var key in item) {
+            if (!item.hasOwnProperty(key)) continue;
+            itemElement.setAttribute("data-" + key, item[key])   
+        }
+        console.log(item)
+        autoElement.appendChild(itemElement)
+    })
+})
+
 function createElementFromHTML(htmlString) {
     var div = document.createElement('div');
     div.innerHTML = htmlString.trim();
@@ -507,7 +522,7 @@ function createElementFromHTML(htmlString) {
     return div.firstChild; 
 }
 
-  function wrap_edit_property(target, placeholder, tag, type) {
+function wrap_edit_property(target, placeholder, tag, type) {
     if (tag === undefined) {
         tag = 'input'
     }
@@ -521,8 +536,13 @@ function createElementFromHTML(htmlString) {
     if (type !== undefined) {
         editElement.type = type
     }
+    var url = target.getAttribute("data-url")
+    if (url) {
+        editElement.setAttribute("data-url", url)
+    }
 
     target.appendChild(editElement)
+    bind_autocomplete(editElement)
 }
 
 function unwrap_edit_property(target) {

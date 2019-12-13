@@ -406,4 +406,3 @@ function check_dirty() {
 function init() {
     clear_all()
 }
-init()
