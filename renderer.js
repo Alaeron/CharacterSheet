@@ -7,16 +7,16 @@
 var Templates = {}
 Templates.Spell = `
 <div class="item spell">
-<div class="title property" data-url="/spells"></div>
-<div class="level property"></div>
-<div class="school property"></div>
+<div class="title property" data-url="/spells" data-prop="name"></div>
+<div class="level property" data-prop="level_int"></div>
+<div class="school property" data-prop="school"></div>
 <i class="fas fa-angle-up"></i>
 <div class="info">
-  <div class="range property"></div>
-  <div class="time property"></div>
-  <div class="components property"></div>
-  <div class="duration property"></div>
-  <div class="description property"></div>
+  <div class="range property" data-prop="range"></div>
+  <div class="time property" data-prop="casting_time"></div>
+  <div class="components property" data-prop="components"></div>
+  <div class="duration property" data-prop="duration"></div>
+  <div class="description property" data-prop="desc"></div>
 </div>
 <div class="edit-panel">                      
   <i class="fas fa-edit"></i>
@@ -490,6 +490,21 @@ function autocomplete_keyup(event) {
     }
     api_request(url + "/?search=" + event.target.value)
 }
+function autocomplete_item_click(event) {
+    var itemElement = event.target.closest(".item")
+    var propElements = itemElement.querySelectorAll(".edit-property")
+    for (i = 0; i < propElements.length; i++) {
+        var propName = propElements[i].parentElement.getAttribute("data-prop")
+        if (propName) {
+            propElements[i].value = event.target.getAttribute("data-" + propName)
+        }
+    }
+    var autoElement = itemElement.querySelector(".autocomplete")
+    if (autoElement) {
+        autoElement.remove()
+    }
+
+}
 
 
 /* Utility Functions */
@@ -509,8 +524,8 @@ ipc.on("api-response", function(evt, data) {
             if (!item.hasOwnProperty(key)) continue;
             itemElement.setAttribute("data-" + key, item[key])   
         }
-        console.log(item)
         autoElement.appendChild(itemElement)
+        itemElement.addEventListener("click", autocomplete_item_click)
     })
 })
 
