@@ -69,7 +69,7 @@ const ipc = require("electron").ipcMain;
 
 ipc.on("api-request", async function(evt, arg){
   const is_reachable = require("is-reachable") 
-  if (await is_reachable("https://api.github.com/repos/Alaeron/CharacterSheet/releases")) {
+  if (await is_reachable(arg)) {
     const {net} = require("electron"); 
     const request = net.request(arg)
     request.on('response', (response) => {
