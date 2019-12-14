@@ -1,6 +1,6 @@
 {
   "name": "character-sheet",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Manage your dnd characters",
   "main": "main.js",
   "scripts": {
@@ -18,6 +18,7 @@
     "electron-builder": "^21.2.0"
   },
   "dependencies": {
+    "electron-is-dev": "^1.1.0",
     "electron-json-storage": "^4.1.8"
   }
 }

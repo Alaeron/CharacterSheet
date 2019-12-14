@@ -21,6 +21,9 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     box-sizing: border-box;
 }
+a {
+    color: lightblue;
+}
 html {
     display: grid;
     height: 100%;
@@ -482,6 +485,9 @@ input[type=number]::-webkit-outer-spin-button {
 .sidebar-left > i {
     right: -31px;
 }
+.sidebar-left .title {
+    text-align: center;
+}
 .sidebar-right > i {
     left: -31px;
 }
@@ -521,7 +527,12 @@ input[type=number]::-webkit-outer-spin-button {
 .sidebar.collapsed .content {
     display: none;
 }
-
+.sidebar .notification {
+    display:none;
+}
+.sidebar .notification.show {
+    display:block;
+}
 /* Sidebar Section */
 .sidebar .section {
     display:flex;

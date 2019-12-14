@@ -226,6 +226,7 @@ function save_file_click(event) {
     }
     var character = get_character()
     fs.writeFileSync(path, JSON.stringify(character), 'utf-8')
+    show_notification("Saved!")
     
     build_char_list(p.dirname(path))    
 }
@@ -318,6 +319,7 @@ function delete_character_click(event) {
         var path = characterElement.getAttribute("data-path")
         if (path) {
             fs.unlinkSync(path)
+            show_notification("Deleted!")
             build_char_list(p.dirname(path))
         } else {
             characterElement.remove()

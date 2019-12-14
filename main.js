@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow, Menu} = require('electron')
 const path = require('path')
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -17,6 +17,12 @@ function createWindow () {
     }
   })
 
+  // Remove the menu bar in release version
+  const isDev = require('electron-is-dev');
+  if (!isDev) {
+    Menu.setApplicationMenu(null)
+  }
+
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
 
@@ -30,6 +36,12 @@ function createWindow () {
     // when you should delete the corresponding element.
     mainWindow = null
   })
+
+  mainWindow.webContents.once("dom-ready", () => {
+    // Check for updates
+    check_updates()
+  })
+
 }
 
 // This method will be called when Electron has finished
@@ -69,3 +81,21 @@ ipc.on("api-request", function(evt, arg){
     })
     request.end()
 })
+
+function check_updates() {
+  const request = net.request("https://api.github.com/repos/Alaeron/CharacterSheet/releases")
+  request.on('response', (response) => {
+    var data = ""
+    response.on('data', (chunk) => {
+      data += chunk
+    })
+    response.on('end', () => {
+      data = JSON.parse(data)
+      if (data[0].tag_name != "v" + app.getVersion()) {
+        mainWindow.webContents.send("update-alert", data[0].tag_name )
+      }
+    })
+  })
+  request.end()
+  
+}

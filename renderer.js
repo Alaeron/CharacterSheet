@@ -523,13 +523,9 @@ function autocomplete_item_click(event) {
 
 }
 
-
-/* Utility Functions */
+/* ipc handling */
 const ipc = require("electron").ipcRenderer;
 
-function api_request(url) {
-    ipc.send("api-request", autocomplete_base_url + url)
-}
 ipc.on("api-response", function(evt, data) {
     var autoElement = document.querySelector(".autocomplete")
     while (autoElement.firstChild) {
@@ -545,7 +541,35 @@ ipc.on("api-response", function(evt, data) {
         itemElement.addEventListener("click", autocomplete_item_click)
     })
 })
+ipc.on("update-alert", function(evt, data) {
+    var url = "https://github.com/Alaeron/CharacterSheet/releases/tag/" + data
 
+    show_notification('<a href="#" data-url="' + url + '">Update</a> available!')
+})
+
+/* Utility Functions */
+function show_notification(content) {
+    var notiElement = document.querySelector(".item.notification")
+    notiElement.innerHTML = content
+    notiElement.classList.add("show")
+    
+    // if there are any links, bind an open external to the data-url
+    var links = notiElement.querySelectorAll("a")
+    links.forEach(function(element) {
+        element.addEventListener("click", function(event) {
+            window.require("electron").shell.openExternal(element.getAttribute("data-url"))
+        })
+    })
+
+    setTimeout(() => {
+        notiElement.classList.remove("show")
+    }, 3000)
+
+}
+
+function api_request(url) {
+    ipc.send("api-request", autocomplete_base_url + url)
+}
 function createElementFromHTML(htmlString) {
     var div = document.createElement('div');
     div.innerHTML = htmlString.trim();
