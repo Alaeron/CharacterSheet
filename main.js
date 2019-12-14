@@ -66,9 +66,11 @@ app.on('activate', function () {
 // code. You can also put them in separate files and require them here.
 
 const ipc = require("electron").ipcMain;
-const {net} = require("electron"); 
 
-ipc.on("api-request", function(evt, arg){
+ipc.on("api-request", async function(evt, arg){
+  const is_reachable = require("is-reachable") 
+  if (await is_reachable("https://api.github.com/repos/Alaeron/CharacterSheet/releases")) {
+    const {net} = require("electron"); 
     const request = net.request(arg)
     request.on('response', (response) => {
       var data = ""
@@ -80,22 +82,27 @@ ipc.on("api-request", function(evt, arg){
       })
     })
     request.end()
+  }
 })
 
-function check_updates() {
-  const request = net.request("https://api.github.com/repos/Alaeron/CharacterSheet/releases")
-  request.on('response', (response) => {
-    var data = ""
-    response.on('data', (chunk) => {
-      data += chunk
+async function check_updates() {
+  const {net} = require("electron"); 
+  const is_reachable = require("is-reachable") 
+
+  if (await is_reachable("https://api.github.com/repos/Alaeron/CharacterSheet/releases")) {
+    const request = net.request("https://api.github.com/repos/Alaeron/CharacterSheet/releases")
+    request.on('response', (response) => {
+      var data = ""
+      response.on('data', (chunk) => {
+        data += chunk
+      })
+      response.on('end', () => {
+        data = JSON.parse(data)
+        if (data[0].tag_name != "v" + app.getVersion()) {
+          mainWindow.webContents.send("update-alert", data[0].tag_name )
+        }
+      })
     })
-    response.on('end', () => {
-      data = JSON.parse(data)
-      if (data[0].tag_name != "v" + app.getVersion()) {
-        mainWindow.webContents.send("update-alert", data[0].tag_name )
-      }
-    })
-  })
-  request.end()
-  
+    request.end()
+}
 }
