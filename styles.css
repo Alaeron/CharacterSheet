@@ -649,6 +649,10 @@ textarea.edit-property {
     min-height: 180px;
     resize: none;
 }
+.higher-level textarea.edit-property {
+    min-height: 80px;
+    resize: none;
+}
 .sidebar-right .section .item.add {
     justify-self: stretch;
     text-align: center;
@@ -689,11 +693,13 @@ textarea.edit-property {
 .sidebar .section .spell .info .time {
     grid-column: 2;
 }
-.sidebar .section .spell .info .description {
+.sidebar .section .spell .info .description,
+.sidebar .section .spell .info .higher-level {
     grid-column: 1 / 3;
-    padding-top: 2px;
+    text-align: left;
 }
 .sidebar .section .spell.collapsed .description,
+.sidebar .section .spell.collapsed .higher-level,
 .sidebar .section .inv-item.collapsed .description,
 .sidebar .section .proficiency.collapsed .description,
 .sidebar .section .spell.collapsed .school,

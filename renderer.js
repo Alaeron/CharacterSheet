@@ -17,6 +17,7 @@ Templates.Spell = `
   <div class="components property" data-prop="components"></div>
   <div class="duration property" data-prop="duration"></div>
   <div class="description property" data-prop="desc"></div>
+  <div class="higher-level property" data-prop="higher_level"></div>
 </div>
 <div class="edit-panel">                      
   <i class="fas fa-edit"></i>
@@ -131,6 +132,7 @@ function begin_edit_spell(itemElement) {
     var componentsElement = itemElement.querySelector('.components')
     var durationElement = itemElement.querySelector('.duration')
     var descriptionElement = itemElement.querySelector('.description')
+    var higherElement = itemElement.querySelector('.higher-level')
 
     wrap_edit_property(titleElement, "Title")
     wrap_edit_property(levelElement, "Level")
@@ -140,6 +142,7 @@ function begin_edit_spell(itemElement) {
     wrap_edit_property(componentsElement, "Components")
     wrap_edit_property(durationElement, "Duration")
     wrap_edit_property(descriptionElement, "Description", 'textarea')
+    wrap_edit_property(higherElement, "Higher Level", 'textarea')
 
     var saveElement = document.createElement('i')
     saveElement.classList = "fas fa-save"
@@ -159,6 +162,7 @@ function spell_save(event) {
     var componentsElement = itemElement.querySelector('.components')
     var durationElement = itemElement.querySelector('.duration')
     var descriptionElement = itemElement.querySelector('.description')
+    var higherElement = itemElement.querySelector('.higher-level')
 
     unwrap_edit_property(titleElement)
     unwrap_edit_property(levelElement)
@@ -169,6 +173,7 @@ function spell_save(event) {
 
     unwrap_edit_property(durationElement)
     unwrap_edit_property(descriptionElement)
+    unwrap_edit_property(higherElement)
     
     event.target.remove()
     itemElement.classList.remove('editing')
@@ -491,6 +496,7 @@ function bind_autocomplete(element) {
         var autoElement = createElementFromHTML('<div class="autocomplete"></div>')
         element.parentElement.appendChild(autoElement)
         element.addEventListener("keyup", autocomplete_keyup)
+        element.addEventListener("blur", autocomplete_lost_focus)
     }
 }
 function autocomplete_keyup(event) {    
@@ -500,6 +506,10 @@ function autocomplete_keyup(event) {
             autoElement.firstChild.remove()
         }
         return false
+    }
+    if (!autoElement) {
+        autoElement = createElementFromHTML('<div class="autocomplete"></div>')
+        event.target.parentElement.appendChild(autoElement)
     }
     var url = event.target.getAttribute("data-url")
     if (!url) {
@@ -522,12 +532,21 @@ function autocomplete_item_click(event) {
     }
 
 }
+function autocomplete_lost_focus(event) {  
+    var itemElement = event.target.closest(".item")
+    var autoElement = itemElement.querySelector(".autocomplete")
+    if (autoElement) {
+        autoElement.remove()
+    }
+    itemElement.removeEventListener("blur", autocomplete_lost_focus)
+}
 
 /* ipc handling */
 const ipc = require("electron").ipcRenderer;
 
 ipc.on("api-response", function(evt, data) {
-    var autoElement = document.querySelector(".autocomplete")
+    var autoElement = document.querySelector(".autocomplete") 
+    
     while (autoElement.firstChild) {
         autoElement.firstChild.remove()
     }
@@ -538,7 +557,7 @@ ipc.on("api-response", function(evt, data) {
             itemElement.setAttribute("data-" + key, item[key])   
         }
         autoElement.appendChild(itemElement)
-        itemElement.addEventListener("click", autocomplete_item_click)
+        itemElement.addEventListener("mousedown", autocomplete_item_click)
     })
 })
 ipc.on("update-alert", function(evt, data) {
