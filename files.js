@@ -408,4 +408,8 @@ function check_dirty() {
 function init() {
     clear_all()
 }
+<<<<<<< HEAD
 init()
+=======
+init()
+>>>>>>> 177dbdcbddc6ca6a8ab4fd196c7c92aae9ee601f
